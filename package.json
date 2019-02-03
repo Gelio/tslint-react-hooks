@@ -2,15 +2,14 @@
   "name": "tslint-react-hooks",
   "version": "1.0.0",
   "description": "TSLint rule that enforces the Rules of Hooks",
-  "main": "tslint-react-hooks",
+  "main": "tslint-react-hooks.json",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "pretest": "npm run build",
     "test": "npm run test:only",
-    "test:only": "npm run test:only:lint && npm run test:only:automated-fix",
-    "test:only:lint": "tslint --test test/automated/**/tslint.json",
-    "test:only:automated-fix": "cd test/automated-fix && bash test-automated-fix.sh"
+    "test:only": "npm run test:only:lint",
+    "test:only:lint": "tslint --test test/**/tslint.json"
   },
   "keywords": [],
   "author": "Grzegorz Rozdzialik <voreny.gelio@gmail.com>",
