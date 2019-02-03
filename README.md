@@ -1,6 +1,6 @@
 # TSLint Rules of Hooks
 
-![Downloads badge](https://img.shields.io/npm/dw/tslint-react-hooks.svg?style=flat)
+[![Downloads badge](https://img.shields.io/npm/dw/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
 ![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)
 ![License badge](https://img.shields.io/npm/l/tslint-react-hooks.svg?style=flat)
 ![GitHub stars badge](https://img.shields.io/github/stars/Gelio/tslint-react-hooks.svg?style=social)
@@ -24,7 +24,7 @@ The rule is based on an [ESLint plugin for react hooks](https://github.com/faceb
 
 ## Installation
 
-First, install the rule:
+First, install [the rule](https://www.npmjs.com/package/tslint-react-hooks):
 
 ```sh
 npm install tslint-react-hooks --save-dev
