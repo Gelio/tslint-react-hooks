@@ -3,6 +3,7 @@ function MyComponent() {
 
   while (true) {
     useCustomHook();
+    ~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 }
 
@@ -11,6 +12,7 @@ const MyComponentArrowFunction = () => {
 
   while (true) {
     useCustomHook();
+    ~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 }
 
@@ -20,5 +22,6 @@ const MyComponentFunctionExpression = function() {
 
   while (true) {
     useCustomHook();
+    ~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 }

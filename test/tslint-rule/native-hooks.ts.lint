@@ -1,9 +1,13 @@
 function MyComponent() {
+  // Hooks can be also used directly from the React namespace
   const ref = useRef();
   const [state, setState] = React.useState(1);
   const [state2, setState2] = useState(2);
 
   while (true) {
     const anotherRef = useRef();
+                       ~~~~~~~~~ [A hook cannot appear inside a loop]
+    const context = React.useContext(SomeContext);
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 }
