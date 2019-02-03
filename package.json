@@ -1,6 +1,6 @@
 {
   "name": "tslint-react-hooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TSLint rule that enforces the Rules of Hooks",
   "main": "tslint-react-hooks.json",
   "scripts": {
