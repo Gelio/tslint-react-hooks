@@ -128,6 +128,31 @@ function MyComponent() {
 }
 ```
 
+## Development
+
+After pulling the repository, make sure to run
+
+```sh
+npm install
+```
+
+The source code for the rule is located in the `src` directory.
+
+For more information about the developing custom TSLint rules, take a look at
+[TSLint's documentation](https://palantir.github.io/tslint/develop/custom-rules/).
+
+### Testing the rule
+
+Run
+
+```sh
+npm run test
+```
+
+to compile the rule and run automatic TSLint tests.
+
+They are located in the `test` directory.
+
 ## Author
 
 The author of this rule is Grzegorz Rozdzialik.
