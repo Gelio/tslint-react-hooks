@@ -12,6 +12,7 @@ import {
   isFunctionExpression,
   isIdentifier,
   isSourceFile,
+  isClassDeclaration,
 } from 'typescript';
 
 import { isHookCall } from './is-hook-call';
@@ -35,13 +36,15 @@ export class ReactHooksNestingWalker extends RuleWalker {
      * * conditional expressions (binary and ternary)
      * * switch statements
      * * iterations statements
+     * * classes
      */
     if (
       isIfStatement(ancestor) ||
       isSwitchStatement(ancestor) ||
       isConditionalExpression(ancestor) ||
       isBinaryConditionalExpression(ancestor) ||
-      isSourceFile(ancestor)
+      isSourceFile(ancestor) ||
+      isClassDeclaration(ancestor)
     ) {
       this.addFailureAtNode(hookNode, ERROR_MESSAGES[ancestor.kind]);
       return;

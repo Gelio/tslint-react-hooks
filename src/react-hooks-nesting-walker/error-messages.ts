@@ -8,7 +8,9 @@ export const ERROR_MESSAGES = {
     'A hook cannot be used in a conditional expression',
   [SyntaxKind.ConditionalExpression]:
     'A hook cannot be used in a conditional expression',
-  [SyntaxKind.SourceFile]: 'A hook cannot be used outside of a component or another hook',
+  [SyntaxKind.SourceFile]:
+    'A hook cannot be used outside of a component or another hook',
+  [SyntaxKind.ClassDeclaration]: 'A hook cannot be used in a class component',
 
   iterationStatement: 'A hook cannot appear inside a loop',
   invalidFunctionDeclaration:

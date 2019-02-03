@@ -1,0 +1,15 @@
+class MyComponent extends React.Component {
+  public render() {
+    useEffect(() => {});
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a class component]
+
+    return this.renderSomeOtherComponent();
+  }
+
+  private renderSomeOtherComponent() {
+    useEffect(() => {});
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a class component]
+
+    return null;
+  }
+}
