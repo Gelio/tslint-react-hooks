@@ -1,0 +1,9 @@
+function MyComponent() {
+  const ref = useRef();
+  const [state, setState] = React.useState(1);
+  const [state2, setState2] = useState(2);
+
+  while (true) {
+    const anotherRef = useRef();
+  }
+}

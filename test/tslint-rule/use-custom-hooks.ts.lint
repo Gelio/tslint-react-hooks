@@ -1,0 +1,24 @@
+function MyComponent() {
+  useCustomHook();
+
+  while (true) {
+    useCustomHook();
+  }
+}
+
+const MyComponentArrowFunction = () => {
+  useCustomHook();
+
+  while (true) {
+    useCustomHook();
+  }
+}
+
+
+const MyComponentFunctionExpression = function() {
+  useCustomHook();
+
+  while (true) {
+    useCustomHook();
+  }
+}

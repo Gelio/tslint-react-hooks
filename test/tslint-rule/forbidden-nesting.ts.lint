@@ -1,0 +1,47 @@
+function MyComponent() {
+  if (forbidden) {
+    useEffect(() => {});
+  } else if (true) {
+    useEffect(() => {});
+  } else {
+    useEffect(() => {});
+  }
+
+  switch ('a') {
+    case 'a':
+      useEffect(() => {});
+      break;
+
+    case 'b':
+      useEffect(() => {});
+      break;
+
+    default:
+      useEffect(() => {});
+      break;
+  }
+
+  for (let i=0; i < 1; i++) {
+    useEffect(() => {});
+  }
+
+  while (true) {
+    useEffect(() => {});
+  }
+
+  do {
+    useEffect(() => {});
+  } while (true);
+
+  // Binary expressions
+  true && useEffect(() => {});
+  false || useEffect(() => {});
+
+  // Ternary expression
+  true ? useEffect(() => {}) : useRef();
+
+  // Usage inside other functions
+  [].forEach(() => {
+    useEffect(() => {});
+  })
+}
