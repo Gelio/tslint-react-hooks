@@ -1,23 +1,27 @@
 import { SourceFile } from 'typescript';
 import { Rules, IRuleMetadata } from 'tslint';
 
-import { RulesOfHooksWalker } from './rules-of-hooks-walker/rules-of-hooks-walker';
+import { ReactHooksNestingWalker } from './react-hooks-nesting-walker/react-hooks-nesting-walker';
 
 export class Rule extends Rules.AbstractRule {
   public static metadata: IRuleMetadata = {
-    ruleName: 'rules-of-react-hooks',
+    ruleName: 'react-hooks-nesting',
     description: 'Enforces Rules of Hooks',
+    descriptionDetails: 'See https://reactjs.org/docs/hooks-rules.html',
+
     optionsDescription: 'There are no available options.',
-    hasFix: false,
     options: null,
     optionExamples: [true],
+
+    hasFix: false,
     type: 'functionality',
-    typescriptOnly: false
+    typescriptOnly: false,
+    requiresTypeInfo: false,
   };
 
   public apply(sourceFile: SourceFile) {
     return this.applyWithWalker(
-      new RulesOfHooksWalker(sourceFile, this.getOptions())
+      new ReactHooksNestingWalker(sourceFile, this.getOptions()),
     );
   }
 }

@@ -19,7 +19,7 @@ import { ERROR_MESSAGES } from './error-messages';
 import { isBinaryConditionalExpression } from './is-binary-conditional-expression';
 import { isComponentOrHookIdentifier } from './is-component-or-hook-identifier';
 
-export class RulesOfHooksWalker extends RuleWalker {
+export class ReactHooksNestingWalker extends RuleWalker {
   public visitCallExpression(node: CallExpression) {
     if (isHookCall(node)) {
       this.visitHookAncestor(node, node.parent);
