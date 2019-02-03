@@ -1,5 +1,9 @@
 # TSLint Rules of Hooks
 
+[![Build Status](https://dev.azure.com/vorenygelio/vorenygelio/_apis/build/status/Gelio.tslint-react-hooks?branchName=master)](https://dev.azure.com/vorenygelio/vorenygelio/_build/latest?definitionId=3&branchName=master)
+
+![Demo](https://i.imgur.com/SGHlOvF.png)
+
 A TSLint rule that enforces the [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) for
 React hooks.
 
