@@ -1,6 +1,10 @@
 # TSLint Rules of Hooks
 
-[![Build Status](https://dev.azure.com/vorenygelio/vorenygelio/_apis/build/status/Gelio.tslint-react-hooks?branchName=master)](https://dev.azure.com/vorenygelio/vorenygelio/_build/latest?definitionId=3&branchName=master)
+![Downloads badge](https://img.shields.io/npm/dw/tslint-react-hooks.svg?style=flat)
+![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)
+![License badge](https://img.shields.io/npm/l/tslint-react-hooks.svg?style=flat)
+![GitHub stars badge](https://img.shields.io/github/stars/Gelio/tslint-react-hooks.svg?style=social)
+![Build Status](https://dev.azure.com/vorenygelio/vorenygelio/_apis/build/status/Gelio.tslint-react-hooks?branchName=master)](https://dev.azure.com/vorenygelio/vorenygelio/_build/latest?definitionId=3&branchName=master)
 
 ![Demo](https://i.imgur.com/SGHlOvF.png)
 
