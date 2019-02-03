@@ -32,7 +32,7 @@ npm install tslint-react-hooks --save-dev
 
 Then, enable the rule by modifying `tslint.json`:
 
-```json
+```js
 {
   "extends": [
     // your other plugins...
