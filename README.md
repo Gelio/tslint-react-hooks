@@ -99,7 +99,10 @@ Unconditional nesting, for example:
 ```tsx
 function MyComponent() {
   if (true) {
-    useEffect(() => {});
+    const variableThatCannotBeLeaked = useContext(SomeContext);
+    useEffect(() => {
+      console.log(variableThatCannotBeLeaked);
+    });
   }
 
   return <div>Text</div>;
@@ -115,7 +118,10 @@ block scope directly:
 ```tsx
 function MyComponent() {
   {
-    useEffect(() => {});
+    const variableThatCannotBeLeaked = useContext(SomeContext);
+    useEffect(() => {
+      console.log(variableThatCannotBeLeaked);
+    });
   }
 
   return <div>Text</div>;
