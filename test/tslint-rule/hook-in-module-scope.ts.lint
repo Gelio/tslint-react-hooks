@@ -1,2 +1,2 @@
 const context = useContext(SomeContext);
-                ~~~~~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear in the module scope]
+                ~~~~~~~~~~~~~~~~~~~~~~~~ [A hook cannot be used outside of a component or another hook]
