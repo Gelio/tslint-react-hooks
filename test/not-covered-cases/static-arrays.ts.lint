@@ -1,0 +1,16 @@
+function MyComponent() {
+  const array = [1, 2, 3];
+
+  array.forEach(value => {
+    /**
+     * This hook will be called unconditionally with the same arguments in the same order.
+     * This is not a violation of the Rules of Hooks, however, it will be a violation
+     * of this TSLint rule.
+     *
+     * To fix it, either disable the rule for the line, or do not use this pattern.
+     */
+
+    React.useEffect(() => console.log(value));
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
+  });
+}

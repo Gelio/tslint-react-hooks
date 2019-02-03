@@ -1,0 +1,6 @@
+{
+  "rulesDirectory": "../../dist",
+  "rules": {
+    "react-hooks-nesting": true
+  }
+}

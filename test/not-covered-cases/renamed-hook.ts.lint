@@ -1,0 +1,9 @@
+const renamedUseState = React.useState;
+
+function MyComponent() {
+  if (Math.random() > 0.5) {
+    // There will be no violation as the rule currently does not resolve variables.
+    // Such static analysis seems hard to implement.
+    const [state, setState] = renamedUseState;
+  }
+}

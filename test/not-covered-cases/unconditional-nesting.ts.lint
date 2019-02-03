@@ -1,0 +1,11 @@
+function MyComponent() {
+  if (true) {
+    // Even though this block is nested, it is unconditional.
+    // This should not be a rule violation.
+    useEffect();
+    ~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+
+    // I believe it would be hard to detect such cases.
+    // The effort might not be worth it.
+  }
+}
