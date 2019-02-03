@@ -12,7 +12,14 @@
     "test:only": "npm run test:only:lint",
     "test:only:lint": "tslint --test test/**/tslint.json"
   },
-  "keywords": [],
+  "keywords": [
+    "tslint",
+    "react",
+    "react-hooks",
+    "rules of hooks",
+    "react hooks",
+    "tslint plugin"
+  ],
   "author": "Grzegorz Rozdzialik <voreny.gelio@gmail.com>",
   "license": "MIT",
   "devDependencies": {
