@@ -30,25 +30,22 @@ First, install [the rule](https://www.npmjs.com/package/tslint-react-hooks):
 npm install tslint-react-hooks --save-dev
 ```
 
-Then, add the `"tslint-react-hooks"` to the list of `extends` in your `tslint.json`:
+Then, enable the rule by modifying `tslint.json`:
 
 ```json
 {
-  "extends": ["tslint-react-hooks"]
-}
-```
-
-and enable the rule in `tslint.json`:
-
-```json
-{
+  "extends": [
+    // your other plugins...
+    "tslint-react-hooks"
+  ],
   "rules": {
+    // your other rules...
     "react-hooks-nesting": "error"
   }
 }
 ```
 
-Possible values are `"error"`, `"warning"`, `true`, or `false`.
+To use report rule violations as warnings intead of errors, set it to `"warning"`.
 
 ## False positives and not-covered cases
 
