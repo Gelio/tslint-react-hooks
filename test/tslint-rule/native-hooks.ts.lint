@@ -6,8 +6,8 @@ function MyComponent() {
 
   while (true) {
     const anotherRef = useRef();
-                       ~~~~~~~~~ [A hook cannot appear inside a loop]
+                       ~~~~~~~~ [A hook cannot appear inside a loop]
     const context = React.useContext(SomeContext);
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 }

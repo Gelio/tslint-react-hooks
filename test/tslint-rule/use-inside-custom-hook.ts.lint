@@ -5,7 +5,7 @@ function useCustomHookFunction() {
 
   if (Math.random() > 0.5) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
   }
 }
 
@@ -16,7 +16,7 @@ const useCustomHookArrowFunction = () => {
 
   if (Math.random() > 0.5) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
   }
 }
 
@@ -27,7 +27,7 @@ const useCustomHookFunctionExpression = function() {
 
   if (Math.random() > 0.5) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
   }
 }
 

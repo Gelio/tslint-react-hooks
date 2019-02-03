@@ -2,62 +2,63 @@ function MyComponent() {
   // If statement
   if (forbidden) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
   } else if (true) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
   } else {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
   }
 
   // Switch statement
   switch ('a') {
     case 'a':
       useEffect(() => {});
-      ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a switch statement]
+      ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a switch statement]
       break;
 
     case 'b':
       useEffect(() => {});
-      ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a switch statement]
+      ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a switch statement]
       break;
 
     default:
       useEffect(() => {});
-      ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a switch statement]
+      ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a switch statement]
       break;
   }
 
   // Loops
   for (let i=0; i < 1; i++) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 
   while (true) {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   }
 
   do {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside a loop]
   } while (true);
 
   // Binary expressions
   true && useEffect(() => {});
-          ~~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a conditional expression]
+          ~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a conditional expression]
   false || useEffect(() => {});
-           ~~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a conditional expression]
+           ~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a conditional expression]
 
   // Ternary expression
   true ? useEffect(() => {}) : useRef();
          ~~~~~~~~~~~~~~~~~~~ [A hook cannot be used in a conditional expression]
+                               ~~~~~~~~ [A hook cannot be used in a conditional expression]
 
   // Usage inside other functions
   [].forEach(() => {
     useEffect(() => {});
-    ~~~~~~~~~~~~~~~~~~~; [A hook cannot be used inside of another function]
+    ~~~~~~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
   })
 }
