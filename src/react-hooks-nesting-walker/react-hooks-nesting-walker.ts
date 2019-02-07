@@ -13,6 +13,8 @@ import {
   isIdentifier,
   isSourceFile,
   isClassDeclaration,
+  isCallExpression,
+  isPropertyAccessExpression,
 } from 'typescript';
 
 import { isHookCall } from './is-hook-call';
@@ -106,6 +108,25 @@ export class ReactHooksNestingWalker extends RuleWalker {
         isComponentOrHookIdentifier(ancestor.parent.name)
       ) {
         return;
+      }
+
+      /**
+       * Allow using hooks when the function is passed to `React.memo` or `React.forwardRef`
+       */
+      if (isCallExpression(ancestor.parent)) {
+        if (
+          isIdentifier(ancestor.parent.expression) &&
+          ['memo', 'forwardRef'].includes(ancestor.parent.expression.text)
+        ) {
+          return;
+        } else if (
+          isPropertyAccessExpression(ancestor.parent.expression) &&
+          isIdentifier(ancestor.parent.expression.expression) &&
+          ancestor.parent.expression.expression.text === 'React' &&
+          ['memo', 'forwardRef'].includes(ancestor.parent.expression.name.text)
+        ) {
+          return;
+        }
       }
 
       // Disallow using hooks inside other kinds of functions
