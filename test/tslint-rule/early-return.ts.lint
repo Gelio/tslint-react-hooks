@@ -1,0 +1,21 @@
+function MyComponent() {
+  const [counter, setCounter] = useState(0);
+
+  if (counter > 5) {
+    return <div>Counter is over 5</div>;
+  }
+
+  useEffect(() => {
+  ~~~~~~~~~~~~~~~~~
+    console.log('Counter is', counter);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  });
+~~~~ [A hook should not appear after a return statement]
+
+  return (
+    <div>
+      {counter} -
+      <button onClick={() => setCounter(counter + 1)}>+1</button>
+    </div>
+  );
+}
