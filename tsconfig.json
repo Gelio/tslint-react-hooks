@@ -8,7 +8,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es2015",
+    "lib": ["esnext"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
