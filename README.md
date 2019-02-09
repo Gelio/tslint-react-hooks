@@ -1,9 +1,9 @@
 # TSLint Rules of Hooks
 
 [![Downloads badge](https://img.shields.io/npm/dw/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
-![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)
-![License badge](https://img.shields.io/npm/l/tslint-react-hooks.svg?style=flat)
-![GitHub stars badge](https://img.shields.io/github/stars/Gelio/tslint-react-hooks.svg?style=social)
+[![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
+[![License badge](https://img.shields.io/npm/l/tslint-react-hooks.svg?style=flat)](https://github.com/Gelio/tslint-react-hooks/blob/master/LICENSE.md)
+[![GitHub stars badge](https://img.shields.io/github/stars/Gelio/tslint-react-hooks.svg?style=social)](https://github.com/Gelio/tslint-react-hooks)
 [![Build Status](https://dev.azure.com/vorenygelio/vorenygelio/_apis/build/status/Gelio.tslint-react-hooks?branchName=master)](https://dev.azure.com/vorenygelio/vorenygelio/_build/latest?definitionId=3&branchName=master)
 
 ![Demo](https://i.imgur.com/SGHlOvF.png)
