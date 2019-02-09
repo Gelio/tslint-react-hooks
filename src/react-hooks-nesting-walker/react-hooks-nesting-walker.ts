@@ -14,13 +14,13 @@ import {
   isSourceFile,
   isClassDeclaration,
   isCallExpression,
-  isPropertyAccessExpression,
 } from 'typescript';
 
 import { isHookCall } from './is-hook-call';
 import { ERROR_MESSAGES } from './error-messages';
 import { isBinaryConditionalExpression } from './is-binary-conditional-expression';
 import { isComponentOrHookIdentifier } from './is-component-or-hook-identifier';
+import { isReactComponentDecorator } from './is-react-component-decorator';
 
 export class ReactHooksNestingWalker extends RuleWalker {
   public visitCallExpression(node: CallExpression) {
@@ -113,20 +113,11 @@ export class ReactHooksNestingWalker extends RuleWalker {
       /**
        * Allow using hooks when the function is passed to `React.memo` or `React.forwardRef`
        */
-      if (isCallExpression(ancestor.parent)) {
-        if (
-          isIdentifier(ancestor.parent.expression) &&
-          ['memo', 'forwardRef'].includes(ancestor.parent.expression.text)
-        ) {
-          return;
-        } else if (
-          isPropertyAccessExpression(ancestor.parent.expression) &&
-          isIdentifier(ancestor.parent.expression.expression) &&
-          ancestor.parent.expression.expression.text === 'React' &&
-          ['memo', 'forwardRef'].includes(ancestor.parent.expression.name.text)
-        ) {
-          return;
-        }
+      if (
+        isCallExpression(ancestor.parent) &&
+        isReactComponentDecorator(ancestor.parent.expression)
+      ) {
+        return;
       }
 
       // Disallow using hooks inside other kinds of functions
