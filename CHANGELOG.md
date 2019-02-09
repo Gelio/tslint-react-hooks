@@ -1,6 +1,6 @@
 # Changelog
 
-## Latest
+## v1.1.0 (2019-02-09)
 
 - Allow using hooks inside React component decorators, such as `React.memo` or `React.forwardRef`.
 
