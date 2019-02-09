@@ -8,3 +8,4 @@ tsconfig.json
 tslint.json
 .prettierrc
 .editorconfig
+CONTRIBUTING.md
