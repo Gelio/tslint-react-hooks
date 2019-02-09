@@ -17,5 +17,5 @@ export function isBinaryConditionalExpression(
     return false;
   }
 
-  return binaryConditionalOperators.indexOf(node.operatorToken.kind) !== -1;
+  return binaryConditionalOperators.includes(node.operatorToken.kind);
 }
