@@ -1,0 +1,36 @@
+// Tests for React top level APIs that wrap components
+
+import React, { memo, forwardRef } from 'react';
+
+// Hooks should be allowed inside functions passed to React.memo and React.forwardRef
+
+const MemoizedComponent = React.memo(() => {
+  const ref = useRef();
+
+  return <div>Memoized</div>;
+});
+
+const RefForwardingComponent = React.forwardRef((props, ref) => {
+  useEffect(() => {
+    console.log('Forwarding refs');
+  });
+
+  return <div ref={ref}>Forwarding refs</div>;
+});
+
+
+// The same as above, but not using the `React` prefix
+
+const MemoizedComponent = memo(() => {
+  const ref = useRef();
+
+  return <div>Memoized</div>;
+});
+
+const RefForwardingComponent = forwardRef((props, ref) => {
+  useEffect(() => {
+    console.log('Forwarding refs');
+  });
+
+  return <div ref={ref}>Forwarding refs</div>;
+});

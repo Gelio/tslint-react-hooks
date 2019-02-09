@@ -1,31 +1,17 @@
-import {
-  CallExpression,
-  isPropertyAccessExpression,
-  isIdentifier
-} from 'typescript';
+import { CallExpression } from 'typescript';
 
 import { isHookIdentifier } from './is-hook-identifier';
+import { isReactApiExpression } from './is-react-api-expression';
 
 /**
- * Tests is a `CallExpression` calls a React Hook
+ * Tests if a `CallExpression` calls a React Hook
  * @see https://github.com/facebook/react/blob/master/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js#L26
  */
 export function isHookCall({ expression }: CallExpression) {
-  if (isIdentifier(expression)) {
-    /**
-     * Test for direct `useHook` calls
-     */
-    return isHookIdentifier(expression);
-  } else if (isPropertyAccessExpression(expression)) {
-    /**
-     * Test for `React.useHook` calls
-     */
-    return (
-      isIdentifier(expression.expression) &&
-      expression.expression.text === 'React' &&
-      isHookIdentifier(expression.name)
-    );
-  }
-
-  return false;
+  return isHookAccessExpression(expression);
 }
+
+/**
+ * Tests for `useHook` or `React.useHook` calls
+ */
+const isHookAccessExpression = isReactApiExpression(isHookIdentifier);
