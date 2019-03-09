@@ -1,5 +1,25 @@
 # Changelog
 
+## v2.0.0 (TBA)
+
+- Report violations whenever a React hook is used after an early return.
+
+  For example, the following code sample now violates the rule:
+
+  ```tsx
+  function MyComponent({ counter }) {
+    if (counter > 5) {
+      return <div>Counter is over 5</div>;
+    }
+
+    useEffect(() => {
+      console.log('Counter is', counter);
+    });
+
+    return <div>{counter}</div>;
+  }
+  ```
+
 ## v1.1.0 (2019-02-09)
 
 - Allow using hooks inside React component decorators, such as `React.memo` or `React.forwardRef`.
