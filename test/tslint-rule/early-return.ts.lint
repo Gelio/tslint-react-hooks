@@ -19,3 +19,12 @@ function MyComponent() {
     </div>
   );
 }
+
+function useCustomHook(param: number) {
+  if (param > 5) {
+    return 'a';
+  }
+
+  useEffect(() => { });
+  ~~~~~~~~~~~~~~~~~~~~ [A hook should not appear after a return statement]
+}
