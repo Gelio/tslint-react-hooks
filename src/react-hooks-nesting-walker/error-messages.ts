@@ -16,4 +16,5 @@ export const ERROR_MESSAGES = {
   invalidFunctionDeclaration:
     'A hook cannot be used inside of another function',
   invalidFunctionExpression: 'A hook cannot be used inside of another function',
+  hookAfterEarlyReturn: 'A hook should not appear after a return statement',
 };
