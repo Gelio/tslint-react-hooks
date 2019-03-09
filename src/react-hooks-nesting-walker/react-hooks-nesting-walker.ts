@@ -14,6 +14,7 @@ import {
   isSourceFile,
   isClassDeclaration,
   isCallExpression,
+  ReturnStatement,
 } from 'typescript';
 
 import { isHookCall } from './is-hook-call';
@@ -21,14 +22,28 @@ import { ERROR_MESSAGES } from './error-messages';
 import { isBinaryConditionalExpression } from './is-binary-conditional-expression';
 import { isComponentOrHookIdentifier } from './is-component-or-hook-identifier';
 import { isReactComponentDecorator } from './is-react-component-decorator';
+import { findParentFunction } from './find-parent-function';
+import { FunctionNode } from './function-node';
 
 export class ReactHooksNestingWalker extends RuleWalker {
+  private functionsWithReturnStatements = new Set<FunctionNode>();
+
   public visitCallExpression(node: CallExpression) {
     if (isHookCall(node)) {
       this.visitHookAncestor(node, node.parent);
     }
 
     super.visitCallExpression(node);
+  }
+
+  public visitReturnStatement(node: ReturnStatement) {
+    const parentFunction = findParentFunction(node);
+
+    if (parentFunction) {
+      this.functionsWithReturnStatements.add(parentFunction);
+    }
+
+    super.visitReturnStatement(node);
   }
 
   private visitHookAncestor(hookNode: CallExpression, ancestor: Node) {
@@ -78,6 +93,11 @@ export class ReactHooksNestingWalker extends RuleWalker {
        * }
        * ```
        */
+
+      if (this.functionsWithReturnStatements.has(ancestor)) {
+        this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+      }
+
       if (ancestor.name && isComponentOrHookIdentifier(ancestor.name)) {
         return;
       }
@@ -102,6 +122,11 @@ export class ReactHooksNestingWalker extends RuleWalker {
        * }
        * ```
        */
+
+      if (this.functionsWithReturnStatements.has(ancestor)) {
+        this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+      }
+
       if (
         isVariableDeclaration(ancestor.parent) &&
         isIdentifier(ancestor.parent.name) &&
