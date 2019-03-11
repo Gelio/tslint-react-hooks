@@ -28,3 +28,11 @@ function useCustomHook(param: number) {
   useEffect(() => { });
   ~~~~~~~~~~~~~~~~~~~~ [A hook should not appear after a return statement]
 }
+
+
+// =============================
+// Do not report rule violations if the hook is called in the `return` statement
+
+function useMyHook() {
+  return useState(true)[0];
+}
