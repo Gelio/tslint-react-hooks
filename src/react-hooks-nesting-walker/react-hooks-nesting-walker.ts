@@ -15,6 +15,7 @@ import {
   isClassDeclaration,
   isCallExpression,
   ReturnStatement,
+  isReturnStatement,
 } from 'typescript';
 
 import { isHookCall } from './is-hook-call';
@@ -23,7 +24,8 @@ import { isBinaryConditionalExpression } from './is-binary-conditional-expressio
 import { isComponentOrHookIdentifier } from './is-component-or-hook-identifier';
 import { isReactComponentDecorator } from './is-react-component-decorator';
 import { findAncestorFunction } from './find-ancestor-function';
-import { FunctionNode } from './function-node';
+import { FunctionNode, isFunctionNode } from './function-node';
+import { findClosestAncestorNode } from './find-closest-ancestor-node';
 
 export class ReactHooksNestingWalker extends RuleWalker {
   private functionsWithReturnStatements = new Set<FunctionNode>();
@@ -95,7 +97,18 @@ export class ReactHooksNestingWalker extends RuleWalker {
        */
 
       if (this.functionsWithReturnStatements.has(ancestor)) {
-        this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+        const closestReturnStatementOrFunctionNode = findClosestAncestorNode(
+          hookNode,
+          (node): node is ReturnStatement | FunctionNode =>
+            isReturnStatement(node) || isFunctionNode(node),
+        );
+
+        if (
+          closestReturnStatementOrFunctionNode &&
+          !isReturnStatement(closestReturnStatementOrFunctionNode)
+        ) {
+          this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+        }
       }
 
       if (ancestor.name && isComponentOrHookIdentifier(ancestor.name)) {
@@ -123,8 +136,23 @@ export class ReactHooksNestingWalker extends RuleWalker {
        * ```
        */
 
+      /**
+       * REFACTOR: Use a shared implementation for all types of functions.
+       * The logic below is duplicated for function declarations.
+       */
       if (this.functionsWithReturnStatements.has(ancestor)) {
-        this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+        const closestReturnStatementOrFunctionNode = findClosestAncestorNode(
+          hookNode,
+          (node): node is ReturnStatement | FunctionNode =>
+            isReturnStatement(node) || isFunctionNode(node),
+        );
+
+        if (
+          closestReturnStatementOrFunctionNode &&
+          !isReturnStatement(closestReturnStatementOrFunctionNode)
+        ) {
+          this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+        }
       }
 
       if (
