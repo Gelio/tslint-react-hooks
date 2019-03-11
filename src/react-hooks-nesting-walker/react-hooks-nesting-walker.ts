@@ -22,7 +22,7 @@ import { ERROR_MESSAGES } from './error-messages';
 import { isBinaryConditionalExpression } from './is-binary-conditional-expression';
 import { isComponentOrHookIdentifier } from './is-component-or-hook-identifier';
 import { isReactComponentDecorator } from './is-react-component-decorator';
-import { findParentFunction } from './find-parent-function';
+import { findAncestorFunction } from './find-ancestor-function';
 import { FunctionNode } from './function-node';
 
 export class ReactHooksNestingWalker extends RuleWalker {
@@ -37,7 +37,7 @@ export class ReactHooksNestingWalker extends RuleWalker {
   }
 
   public visitReturnStatement(node: ReturnStatement) {
-    const parentFunction = findParentFunction(node);
+    const parentFunction = findAncestorFunction(node);
 
     if (parentFunction) {
       this.functionsWithReturnStatements.add(parentFunction);
