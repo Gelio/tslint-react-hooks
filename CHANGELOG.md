@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0 (TBA)
+## v2.0.0 (2019-03-12)
 
 - Report violations whenever a React hook is used after an early return.
 
