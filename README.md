@@ -21,6 +21,7 @@ The rule is based on an [ESLint plugin for react hooks](https://github.com/faceb
   - ternary expressions
   - loops (`while`, `for`, `do ... while`)
   - functions that themselves are not custom hooks or components
+- detects using React hooks in spite of an early return
 
 ## Installation
 

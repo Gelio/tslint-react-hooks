@@ -1,0 +1,7 @@
+function MyComponentReturningHookCall() {
+  // Using a hook inside of a returned value should not be a rule violation,
+  // even if it looks silly.
+
+  return <div ref={useRef()}>Hello world</div>;
+                   ~~~~~~~~ [A hook should not appear after a return statement]
+}

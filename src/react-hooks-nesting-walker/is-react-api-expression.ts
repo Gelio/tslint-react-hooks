@@ -5,7 +5,7 @@ import {
   Expression,
 } from 'typescript';
 
-export type Predicate<T> = (t: T) => boolean;
+import { Predicate } from './predicate';
 
 /**
  * Tests whether an `Expression` is an identifier that matches a predicate. Accepts also property

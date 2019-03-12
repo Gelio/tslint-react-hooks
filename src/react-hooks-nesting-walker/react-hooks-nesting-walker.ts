@@ -14,6 +14,8 @@ import {
   isSourceFile,
   isClassDeclaration,
   isCallExpression,
+  ReturnStatement,
+  isReturnStatement,
 } from 'typescript';
 
 import { isHookCall } from './is-hook-call';
@@ -21,14 +23,29 @@ import { ERROR_MESSAGES } from './error-messages';
 import { isBinaryConditionalExpression } from './is-binary-conditional-expression';
 import { isComponentOrHookIdentifier } from './is-component-or-hook-identifier';
 import { isReactComponentDecorator } from './is-react-component-decorator';
+import { findAncestorFunction } from './find-ancestor-function';
+import { FunctionNode, isFunctionNode } from './function-node';
+import { findClosestAncestorNode } from './find-closest-ancestor-node';
 
 export class ReactHooksNestingWalker extends RuleWalker {
+  private functionsWithReturnStatements = new Set<FunctionNode>();
+
   public visitCallExpression(node: CallExpression) {
     if (isHookCall(node)) {
       this.visitHookAncestor(node, node.parent);
     }
 
     super.visitCallExpression(node);
+  }
+
+  public visitReturnStatement(node: ReturnStatement) {
+    const parentFunction = findAncestorFunction(node);
+
+    if (parentFunction) {
+      this.functionsWithReturnStatements.add(parentFunction);
+    }
+
+    super.visitReturnStatement(node);
   }
 
   private visitHookAncestor(hookNode: CallExpression, ancestor: Node) {
@@ -78,6 +95,22 @@ export class ReactHooksNestingWalker extends RuleWalker {
        * }
        * ```
        */
+
+      if (this.functionsWithReturnStatements.has(ancestor)) {
+        const closestReturnStatementOrFunctionNode = findClosestAncestorNode(
+          hookNode,
+          (node): node is ReturnStatement | FunctionNode =>
+            isReturnStatement(node) || isFunctionNode(node),
+        );
+
+        if (
+          closestReturnStatementOrFunctionNode &&
+          !isReturnStatement(closestReturnStatementOrFunctionNode)
+        ) {
+          this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+        }
+      }
+
       if (ancestor.name && isComponentOrHookIdentifier(ancestor.name)) {
         return;
       }
@@ -102,6 +135,26 @@ export class ReactHooksNestingWalker extends RuleWalker {
        * }
        * ```
        */
+
+      /**
+       * REFACTOR: Use a shared implementation for all types of functions.
+       * The logic below is duplicated for function declarations.
+       */
+      if (this.functionsWithReturnStatements.has(ancestor)) {
+        const closestReturnStatementOrFunctionNode = findClosestAncestorNode(
+          hookNode,
+          (node): node is ReturnStatement | FunctionNode =>
+            isReturnStatement(node) || isFunctionNode(node),
+        );
+
+        if (
+          closestReturnStatementOrFunctionNode &&
+          !isReturnStatement(closestReturnStatementOrFunctionNode)
+        ) {
+          this.addFailureAtNode(hookNode, ERROR_MESSAGES.hookAfterEarlyReturn);
+        }
+      }
+
       if (
         isVariableDeclaration(ancestor.parent) &&
         isIdentifier(ancestor.parent.name) &&
