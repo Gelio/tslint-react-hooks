@@ -48,6 +48,34 @@ Then, enable the rule by modifying `tslint.json`:
 
 To use report rule violations as warnings intead of errors, set it to `"warning"`.
 
+## Workarounds
+
+For some arrow functions/function expressions, the rule has no way to determine whether those are a
+component, a hook, both of which could contain hook calls, or a regular function that should not
+contain hook calls.
+
+```ts
+const withHoc = <TProps extends object>(Component: ComponentType<TProps>) => (
+  props: TProps,
+) => {
+  const [state] = useState();
+  return <Component {...props} />;
+};
+```
+
+The workaround in those cases is to use a **named function expression**:
+
+```ts
+const withHoc = <TProps extends object>(Component: ComponentType<TProps>) =>
+  function WrappedComponent(props: TProps) {
+    const [state] = useState();
+    return <Component {...props} />;
+  };
+```
+
+Naming the function like a component (in _PascalCase_) unambiguously let's the rule treat the
+function as a component.
+
 ## False positives and not-covered cases
 
 There are some cases that seem hard to analyze and may result in false positives or false negatives.

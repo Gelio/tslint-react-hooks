@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.1.0 (2019-04-19)
+
+- Describe a workaround for ambiguous function expressions in the README
+- Detect and allow using hooks inside named function expressions
+
+  ```tsx
+  const withHoc = <TProps extends object>(Component: ComponentType<TProps>) =>
+    function WrappedComponent(props: TProps) {
+      // Naming the function expression allows using hooks
+      const [state] = useState();
+      return <Component {...props} />;
+    };
+  ```
+
 ## v2.0.0 (2019-03-12)
 
 - Report violations whenever a React hook is used after an early return.
