@@ -133,6 +133,10 @@ export class ReactHooksNestingWalker extends RuleWalker {
        * const MyComponent = function() {
        *   useEffect();
        * }
+       *
+       * const MyComponent = function MyComponent() {
+       *   useEffect();
+       * }
        * ```
        */
 
@@ -155,6 +159,16 @@ export class ReactHooksNestingWalker extends RuleWalker {
         }
       }
 
+      /**
+       * Detect using hooks inside named function expressions
+       */
+      if (ancestor.name && isComponentOrHookIdentifier(ancestor.name)) {
+        return;
+      }
+
+      /**
+       * Detect that an unnamed function expression is a component or a hook
+       */
       if (
         isVariableDeclaration(ancestor.parent) &&
         isIdentifier(ancestor.parent.name) &&

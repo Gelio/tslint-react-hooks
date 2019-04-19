@@ -1,0 +1,9 @@
+const withHoc = <TProps extends object>(Component: ComponentType<TProps>) =>
+  function WrappedComponent(props: TProps) {
+    const [state] = useState();
+    return <Component {...props} />;
+  };
+
+const NamedComponent = function NamedComponent(props) {
+  const [state, setstate] = useState(initialState);
+};
