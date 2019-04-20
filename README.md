@@ -73,7 +73,7 @@ const withHoc = <TProps extends object>(Component: ComponentType<TProps>) =>
   };
 ```
 
-Naming the function like a component (in _PascalCase_) unambiguously let's the rule treat the
+Naming the function like a component (in _PascalCase_) unambiguously lets the rule treat the
 function as a component.
 
 ## False positives and not-covered cases
