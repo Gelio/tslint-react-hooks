@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1 (2019-06-09)
+
+- Update dependencies due to security vulnerabilities
+
 ## v2.1.0 (2019-04-19)
 
 - Describe a workaround for ambiguous function expressions in the README
