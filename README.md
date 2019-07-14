@@ -62,9 +62,12 @@ following syntax when modifying `tslint.json`:
   ],
   "rules": {
     // your other rules...
-    "react-hooks-nesting": ["error", {
-      // options go here
-    }]
+    "react-hooks-nesting": {
+      "severity": "error", // "error", "warning", "default" or "off"
+      "options": {
+        // options go here
+      }
+    }
   }
 }
 ```
