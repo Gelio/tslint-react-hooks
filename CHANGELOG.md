@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.2.1 (2019-07-14)
+
+- Fix the description of rule options in README
+
 ## v2.2.0 (2019-07-14)
 
 - Add support for optionally detecting hook calls from sources other than the `React` namespace
