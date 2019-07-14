@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.2.0 (2019-07-14)
+
+- Add support for optionally detecting hook calls from sources other than the `React` namespace
+  (e.g. `MyHooks.useHook`).
+
+  Usage is described in the README.
+
 ## v2.1.1 (2019-06-09)
 
 - Update dependencies due to security vulnerabilities
