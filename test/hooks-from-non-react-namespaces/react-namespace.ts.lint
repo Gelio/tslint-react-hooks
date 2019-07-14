@@ -1,0 +1,8 @@
+import React from 'react';
+
+function MyComponent() {
+  if (true) {
+    React.useState();
+    ~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+  }
+}

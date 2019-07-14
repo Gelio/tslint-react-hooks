@@ -26,12 +26,15 @@ import { isReactComponentDecorator } from './is-react-component-decorator';
 import { findAncestorFunction } from './find-ancestor-function';
 import { FunctionNode, isFunctionNode } from './function-node';
 import { findClosestAncestorNode } from './find-closest-ancestor-node';
+import { parseRuleOptions } from './options';
 
 export class ReactHooksNestingWalker extends RuleWalker {
   private functionsWithReturnStatements = new Set<FunctionNode>();
 
+  private readonly ruleOptions = parseRuleOptions(this.getOptions());
+
   public visitCallExpression(node: CallExpression) {
-    if (isHookCall(node)) {
+    if (isHookCall(node, this.ruleOptions)) {
       this.visitHookAncestor(node, node.parent);
     }
 

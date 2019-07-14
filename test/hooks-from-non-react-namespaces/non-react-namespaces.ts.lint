@@ -1,0 +1,16 @@
+import * as MyHooks from './my-hooks';
+import MyHooks2 from './my-hooks-2';
+import { MyHooks3 } from './my-hooks-3';
+
+function MyComponent() {
+  if (true) {
+    MyHooks.useHook();
+    ~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+
+    MyHooks2.useHook();
+    ~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+
+    MyHooks3.useHook();
+    ~~~~~~~~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+  }
+}

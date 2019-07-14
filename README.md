@@ -22,6 +22,7 @@ The rule is based on an [ESLint plugin for react hooks](https://github.com/faceb
   - loops (`while`, `for`, `do ... while`)
   - functions that themselves are not custom hooks or components
 - detects using React hooks in spite of an early return
+- support for detecting hooks from namespaces other than `React` (e.g. `MyHooks.useHook`) (**optional**)
 
 ## Installation
 
@@ -47,6 +48,37 @@ Then, enable the rule by modifying `tslint.json`:
 ```
 
 To use report rule violations as warnings intead of errors, set it to `"warning"`.
+
+## Options
+
+While the rule works fine out-of-the-box, it can be customized. To specify options, use the
+following syntax when modifying `tslint.json`:
+
+```js
+{
+  "extends": [
+    // your other plugins...
+    "tslint-react-hooks"
+  ],
+  "rules": {
+    // your other rules...
+    "react-hooks-nesting": ["error", {
+      // options go here
+    }]
+  }
+}
+```
+
+### Available options
+
+- `"detect-hooks-from-non-react-namespace"` - when set to `true`, violations will be also reported
+  hooks accessed from sources other than the `React` namespace (e.g. `MyHooks.useHook` will be
+  treated as a hook).
+
+  By default, only direct calls (e.g. `useHook`) or calls from `React` namespace (e.g.
+  `React.useState`) are treated as hooks.
+
+Have an idea for an option? [Create a new issue](https://github.com/Gelio/tslint-react-hooks/issues/new).
 
 ## Workarounds
 

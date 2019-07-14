@@ -1,7 +1,8 @@
 import { SourceFile } from 'typescript';
-import { Rules, IRuleMetadata } from 'tslint';
+import { Rules, IRuleMetadata, Utils } from 'tslint';
 
 import { ReactHooksNestingWalker } from './react-hooks-nesting-walker/react-hooks-nesting-walker';
+import { detectHooksFromNonReactNamespaceOptionName } from './react-hooks-nesting-walker/options';
 
 export class Rule extends Rules.AbstractRule {
   public static metadata: IRuleMetadata = {
@@ -9,9 +10,23 @@ export class Rule extends Rules.AbstractRule {
     description: 'Enforces Rules of Hooks',
     descriptionDetails: 'See https://reactjs.org/docs/hooks-rules.html',
 
-    optionsDescription: 'There are no available options.',
-    options: null,
-    optionExamples: [true],
+    optionsDescription: Utils.dedent`
+      An optional object with the property ${detectHooksFromNonReactNamespaceOptionName}.
+      When set to true, violations will be reported for hooks from namespaces other
+      than the React namespace (e.g. \`MyHooks.useHook\` will be treated as a hook).
+    `,
+    options: {
+      type: 'object',
+      properties: {
+        [detectHooksFromNonReactNamespaceOptionName]: {
+          type: 'boolean',
+        },
+      },
+    },
+    optionExamples: [
+      true,
+      [true, { [detectHooksFromNonReactNamespaceOptionName]: true }],
+    ],
 
     hasFix: false,
     type: 'functionality',

@@ -1,0 +1,11 @@
+{
+  "rulesDirectory": "../../dist",
+  "rules": {
+    "react-hooks-nesting": [
+      true,
+      {
+        "detect-hooks-from-non-react-namespace": true
+      }
+    ]
+  }
+}
