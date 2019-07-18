@@ -9,6 +9,7 @@ import { isHookIdentifier } from './is-hook-identifier';
 import {
   RuleOptions,
   detectHooksFromNonReactNamespaceOptionName,
+  ignoredFunctionsOptionName,
 } from './options';
 
 /**
@@ -20,11 +21,14 @@ export function isHookCall(
   ruleOptions: RuleOptions,
 ) {
   if (isIdentifier(expression) && isHookIdentifier(expression)) {
-    return true;
+    return !ruleOptions[ignoredFunctionsOptionName].has(expression.text);
   } else if (
     isPropertyAccessExpression(expression) &&
     isHookIdentifier(expression.name)
   ) {
+    if (ruleOptions[ignoredFunctionsOptionName].has(expression.name.text)) {
+      return false;
+    }
     if (ruleOptions[detectHooksFromNonReactNamespaceOptionName]) {
       return true;
     }

@@ -1,5 +1,6 @@
 export const detectHooksFromNonReactNamespaceOptionName =
   'detect-hooks-from-non-react-namespace';
+export const ignoredFunctionsOptionName = 'ignored-functions';
 
 export interface RuleOptions {
   /**
@@ -7,9 +8,15 @@ export interface RuleOptions {
    * (e.g. `MyHooks.useHook` will be treated as a hook).
    */
   [detectHooksFromNonReactNamespaceOptionName]?: boolean;
+  /**
+   * Every function name listed here will never be treated as a hook.
+   */
+  [ignoredFunctionsOptionName]: ReadonlySet<string>;
 }
 
-const defaultRuleOptions: RuleOptions = {};
+const defaultRuleOptions: RuleOptions = {
+  [ignoredFunctionsOptionName]: new Set(),
+};
 
 export function parseRuleOptions(rawOptionsArray: unknown): RuleOptions {
   if (!Array.isArray(rawOptionsArray)) {
@@ -21,7 +28,7 @@ export function parseRuleOptions(rawOptionsArray: unknown): RuleOptions {
     return defaultRuleOptions;
   }
 
-  let parsedOptions: RuleOptions = { ...defaultRuleOptions };
+  const parsedOptions: RuleOptions = { ...defaultRuleOptions };
 
   const detectHooksFromNonReactNamespaceOption =
     rawOptions[detectHooksFromNonReactNamespaceOptionName];
@@ -29,6 +36,14 @@ export function parseRuleOptions(rawOptionsArray: unknown): RuleOptions {
     parsedOptions[
       detectHooksFromNonReactNamespaceOptionName
     ] = detectHooksFromNonReactNamespaceOption;
+  }
+
+  const ignoredFunctionsOption =
+    rawOptions[ignoredFunctionsOptionName];
+  if (Array.isArray(ignoredFunctionsOption) && ignoredFunctionsOption.length > 0) {
+    parsedOptions[
+      ignoredFunctionsOptionName
+    ] = new Set(ignoredFunctionsOption);
   }
 
   return parsedOptions;

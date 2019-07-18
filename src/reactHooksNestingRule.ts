@@ -2,7 +2,10 @@ import { SourceFile } from 'typescript';
 import { Rules, IRuleMetadata, Utils } from 'tslint';
 
 import { ReactHooksNestingWalker } from './react-hooks-nesting-walker/react-hooks-nesting-walker';
-import { detectHooksFromNonReactNamespaceOptionName } from './react-hooks-nesting-walker/options';
+import {
+  detectHooksFromNonReactNamespaceOptionName,
+  ignoredFunctionsOptionName
+} from './react-hooks-nesting-walker/options';
 
 export class Rule extends Rules.AbstractRule {
   public static metadata: IRuleMetadata = {
@@ -11,9 +14,13 @@ export class Rule extends Rules.AbstractRule {
     descriptionDetails: 'See https://reactjs.org/docs/hooks-rules.html',
 
     optionsDescription: Utils.dedent`
-      An optional object with the property ${detectHooksFromNonReactNamespaceOptionName}.
-      When set to true, violations will be reported for hooks from namespaces other
+      An optional object with optional properties:
+      - ${detectHooksFromNonReactNamespaceOptionName} When set to true,
+      violations will be reported for hooks from namespaces other
       than the React namespace (e.g. \`MyHooks.useHook\` will be treated as a hook).
+      - ${ignoredFunctionsOptionName} contains a list of function names,
+      that are never treated as hooks.
+      Also effects things from the React namespace, use with care.
     `,
     options: {
       type: 'object',
@@ -21,11 +28,18 @@ export class Rule extends Rules.AbstractRule {
         [detectHooksFromNonReactNamespaceOptionName]: {
           type: 'boolean',
         },
+        [ignoredFunctionsOptionName]: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
       },
     },
     optionExamples: [
       true,
       [true, { [detectHooksFromNonReactNamespaceOptionName]: true }],
+      [true, { [ignoredFunctionsOptionName]: ['useTestHelper'] }],
     ],
 
     hasFix: false,

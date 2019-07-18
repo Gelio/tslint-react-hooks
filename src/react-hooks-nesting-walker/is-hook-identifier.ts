@@ -1,6 +1,6 @@
 import { Identifier } from 'typescript';
 
-export function isHookIdentifier(node: Identifier) {
+export function isHookIdentifier(node: Identifier): node is Identifier {
   return isHookName(node.text);
 }
 
