@@ -27,6 +27,7 @@ export const isReactApiExpression = (predicate: Predicate<Identifier>) => (
     return (
       isIdentifier(expression.expression) &&
       expression.expression.text === 'React' &&
+      isIdentifier(expression.name) &&
       predicate(expression.name)
     );
   }

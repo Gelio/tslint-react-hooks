@@ -23,6 +23,7 @@ export function isHookCall(
     return true;
   } else if (
     isPropertyAccessExpression(expression) &&
+    isIdentifier(expression.name) &&
     isHookIdentifier(expression.name)
   ) {
     if (ruleOptions[detectHooksFromNonReactNamespaceOptionName]) {
