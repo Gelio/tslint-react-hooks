@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.2.2 (2020-03-21)
+
+- Maintenance
+
+  - Upgrade TypeScript to 3.8.3
+  - Upgrade TSLint to 6.x
+
+- Allow TSLint 6.x as a `peerDependency`
+
+  This rule can not be used with TSLint 6.x.
+
 ## v2.2.1 (2019-07-14)
 
 - Fix the description of rule options in README
