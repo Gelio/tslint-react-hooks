@@ -24,7 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^12.12.30",
-    "tslint": "^5.20.1",
+    "tslint": "^6.1.0",
     "typescript": "^3.8.3"
   },
   "homepage": "https://github.com/Gelio/tslint-react-hooks",
@@ -33,7 +33,7 @@
     "url": "https://github.com/Gelio/tslint-react-hooks"
   },
   "peerDependencies": {
-    "tslint": "^5.1.0",
+    "tslint": "5 - 6",
     "typescript": ">=2.1.0"
   }
 }
