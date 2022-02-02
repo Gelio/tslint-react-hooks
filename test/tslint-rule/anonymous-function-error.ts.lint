@@ -1,0 +1,19 @@
+const IllegalComponent = wrapper(function() {
+  useEffect(() => {});
+  ~~~~~~~~~~~~~~~~~~~ [Hook is in an anonymous function that is passed to an illegal callback]
+})
+
+const LegalAnonymousComponent = function() {
+  useEffect(() => {});
+}
+
+const ForwardedComponent = React.forwardRef(function(props, ref) {
+  useEffect(() => {
+    console.log("I am legal")
+  });
+})
+
+const MemoizedComponent = React.memo((props) => {
+  const [state, setState] = React.useState(props.initValue);
+  return <span>{state}</span>
+})
