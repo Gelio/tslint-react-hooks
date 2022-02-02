@@ -181,6 +181,21 @@ export class ReactHooksNestingWalker extends RuleWalker {
       }
 
       /**
+       * Detect if the unnamed expression is wrapped in a illegal function call
+       */
+      if (
+        isCallExpression(ancestor.parent) &&
+        isIdentifier(ancestor.parent.expression) &&
+        !isReactComponentDecorator(ancestor.parent.expression)
+      ) {
+        this.addFailureAtNode(
+          hookNode,
+          ERROR_MESSAGES.anonymousFunctionIllegalCallback,
+        );
+        return;
+      }
+
+      /**
        * Allow using hooks when the function is passed to `React.memo` or `React.forwardRef`
        */
       if (
