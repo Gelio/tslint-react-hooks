@@ -23,4 +23,9 @@ const Functor = function() {
     const r = React.useRef()
               ~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
   }, [])
+
+  const cb = useCallback(() => {
+    const r = React.useRef()
+              ~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
+  }, [])
 }
