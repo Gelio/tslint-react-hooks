@@ -28,4 +28,10 @@ const Functor = function() {
     const r = React.useRef()
               ~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
   }, [])
+
+  obj[(props) => { useRef() }] = 123;
+                   ~~~~~~~~           [A hook cannot be used inside of another function]
+
+  new Abc((props) => { useRef() })
+                       ~~~~~~~~    [A hook cannot be used inside of another function] 
 }
