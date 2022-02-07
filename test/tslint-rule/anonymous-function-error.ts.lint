@@ -1,0 +1,37 @@
+const IllegalComponent = wrapper(function() {
+  useEffect(() => {});
+  ~~~~~~~~~~~~~~~~~~~ [Hook is in an anonymous function that is passed to an illegal callback. Legal callbacks identifiers that can receive anonymous functions as arguments are memo and forwardRef]
+})
+
+const LegalAnonymousComponent = function() {
+  useEffect(() => {});
+}
+
+const ForwardedComponent = React.forwardRef(function(props, ref) {
+  useEffect(() => {
+    console.log("I am legal")
+  });
+})
+
+const MemoizedComponent = React.memo((props) => {
+  const [state, setState] = React.useState(props.initValue);
+  return <span>{state}</span>
+})
+
+const Functor = function() {
+  const cb = React.useCallback(() => {
+    const r = React.useRef()
+              ~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
+  }, [])
+
+  const cb = useCallback(() => {
+    const r = React.useRef()
+              ~~~~~~~~~~~~~~ [A hook cannot be used inside of another function]
+  }, [])
+
+  obj[(props) => { useRef() }] = 123;
+                   ~~~~~~~~           [A hook cannot be used inside of another function]
+
+  new Abc((props) => { useRef() })
+                       ~~~~~~~~    [A hook cannot be used inside of another function] 
+}

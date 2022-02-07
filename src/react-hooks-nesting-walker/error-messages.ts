@@ -17,4 +17,5 @@ export const ERROR_MESSAGES = {
     'A hook cannot be used inside of another function',
   invalidFunctionExpression: 'A hook cannot be used inside of another function',
   hookAfterEarlyReturn: 'A hook should not appear after a return statement',
+  anonymousFunctionIllegalCallback: `Hook is in an anonymous function that is passed to an illegal callback. Legal callbacks identifiers that can receive anonymous functions as arguments are memo and forwardRef`,
 };
