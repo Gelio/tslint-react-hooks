@@ -26,9 +26,8 @@ export function parseRuleOptions(rawOptionsArray: unknown): RuleOptions {
   const detectHooksFromNonReactNamespaceOption =
     rawOptions[detectHooksFromNonReactNamespaceOptionName];
   if (typeof detectHooksFromNonReactNamespaceOption === 'boolean') {
-    parsedOptions[
-      detectHooksFromNonReactNamespaceOptionName
-    ] = detectHooksFromNonReactNamespaceOption;
+    parsedOptions[detectHooksFromNonReactNamespaceOptionName] =
+      detectHooksFromNonReactNamespaceOption;
   }
 
   return parsedOptions;

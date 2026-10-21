@@ -18,19 +18,18 @@ import { Predicate } from './predicate';
  *
  * @param predicate Predicate that is run on the actual identifier.
  */
-export const isReactApiExpression = (predicate: Predicate<Identifier>) => (
-  expression: Expression,
-) => {
-  if (isIdentifier(expression)) {
-    return predicate(expression);
-  } else if (isPropertyAccessExpression(expression)) {
-    return (
-      isIdentifier(expression.expression) &&
-      expression.expression.text === 'React' &&
-      isIdentifier(expression.name) &&
-      predicate(expression.name)
-    );
-  }
+export const isReactApiExpression =
+  (predicate: Predicate<Identifier>) => (expression: Expression) => {
+    if (isIdentifier(expression)) {
+      return predicate(expression);
+    } else if (isPropertyAccessExpression(expression)) {
+      return (
+        isIdentifier(expression.expression) &&
+        expression.expression.text === 'React' &&
+        isIdentifier(expression.name) &&
+        predicate(expression.name)
+      );
+    }
 
-  return false;
-};
+    return false;
+  };
