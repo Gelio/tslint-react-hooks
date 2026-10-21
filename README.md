@@ -4,7 +4,7 @@
 [![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
 [![License badge](https://img.shields.io/npm/l/tslint-react-hooks.svg?style=flat)](https://github.com/Gelio/tslint-react-hooks/blob/master/LICENSE.md)
 [![GitHub stars badge](https://img.shields.io/github/stars/Gelio/tslint-react-hooks.svg?style=social)](https://github.com/Gelio/tslint-react-hooks)
-[![Build Status](https://dev.azure.com/vorenygelio/vorenygelio/_apis/build/status/Gelio.tslint-react-hooks?branchName=master)](https://dev.azure.com/vorenygelio/vorenygelio/_build/latest?definitionId=3&branchName=master)
+[![CI](https://github.com/Gelio/tslint-react-hooks/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/Gelio/tslint-react-hooks/actions/workflows/ci.yml)
 
 ![Demo](https://i.imgur.com/SGHlOvF.png)
 

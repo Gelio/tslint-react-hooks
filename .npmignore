@@ -1,7 +1,6 @@
 node_modules
 src
 test
-azure-pipelines.yml
 .vscode
 .gitignore
 tsconfig.json
