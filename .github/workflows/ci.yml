@@ -82,6 +82,7 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - run: npm run format:check
       # `prepack` builds `dist`, so this packs what `npm publish` would.
       - run: npm pack
       - name: Lint with the packed tarball

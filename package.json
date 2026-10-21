@@ -15,7 +15,9 @@
     "pretest": "npm run build",
     "test": "npm run test:only",
     "test:only": "npm run test:only:lint",
-    "test:only:lint": "tslint --test test/**/tslint.json"
+    "test:only:lint": "tslint --test test/**/tslint.json",
+    "format": "prettier --write src .github",
+    "format:check": "prettier --check src .github"
   },
   "keywords": [
     "tslint",
