@@ -117,7 +117,7 @@ jobs:
           status=$?
           set -e
           cat bad.out
-          if [ "$status" -eq 0 ] || ! grep -q react-hooks-nesting bad.out; then
+          if [ "$status" -eq 0 ] || ! grep -q 'A hook cannot appear inside an if statement' bad.out; then
             echo "::error::Expected tslint to report react-hooks-nesting in bad.ts"
             exit 1
           fi
