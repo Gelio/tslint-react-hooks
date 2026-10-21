@@ -3,10 +3,15 @@
   "version": "2.2.2",
   "description": "TSLint rule that enforces the Rules of Hooks",
   "main": "tslint-react-hooks.json",
+  "files": [
+    "dist",
+    "tslint-react-hooks.json",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "prepublishOnly": "npm run build",
+    "prepack": "npm run build",
     "pretest": "npm run build",
     "test": "npm run test:only",
     "test:only": "npm run test:only:lint",

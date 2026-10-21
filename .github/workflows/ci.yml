@@ -71,3 +71,53 @@ jobs:
             }
           '
       - run: npm run test:only
+
+  package:
+    name: Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      # `prepack` builds `dist`, so this packs what `npm publish` would.
+      - run: npm pack
+      - name: Lint with the packed tarball
+        run: |
+          set -euo pipefail
+          tarball="$PWD/$(ls tslint-react-hooks-*.tgz)"
+          mkdir "$RUNNER_TEMP/smoke"
+          cd "$RUNNER_TEMP/smoke"
+          npm init -y > /dev/null
+          # Pin TypeScript 5: an unpinned install picks 7, which TSLint can't run on.
+          npm i --no-audit --no-fund "$tarball" tslint@6 typescript@5
+          cat > tslint.json <<'EOF'
+          {
+            "extends": ["tslint-react-hooks"],
+            "rules": { "react-hooks-nesting": "error" }
+          }
+          EOF
+          cat > bad.ts <<'EOF'
+          function MyComponent() {
+            if (Math.random() > 0.5) {
+              useState(0);
+            }
+          }
+          EOF
+          cat > good.ts <<'EOF'
+          function MyComponent() {
+            useState(0);
+          }
+          EOF
+          set +e
+          npx tslint -c tslint.json bad.ts > bad.out 2>&1
+          status=$?
+          set -e
+          cat bad.out
+          if [ "$status" -eq 0 ] || ! grep -q react-hooks-nesting bad.out; then
+            echo "::error::Expected tslint to report react-hooks-nesting in bad.ts"
+            exit 1
+          fi
+          npx tslint -c tslint.json good.ts
