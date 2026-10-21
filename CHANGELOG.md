@@ -9,7 +9,7 @@
 
 - Allow TSLint 6.x as a `peerDependency`
 
-  This rule can not be used with TSLint 6.x.
+  This rule can now be used with TSLint 6.x.
 
 ## v2.2.1 (2019-07-14)
 

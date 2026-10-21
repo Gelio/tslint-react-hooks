@@ -8,10 +8,10 @@
 
 ![Demo](https://i.imgur.com/SGHlOvF.png)
 
-A TSLint rule that enforces the [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) for
+A TSLint rule that enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-hooks) for
 React hooks.
 
-The rule is based on an [ESLint plugin for react hooks](https://github.com/facebook/react/blob/master/packages/eslint-plugin-react-hooks/README.md).
+The rule is based on an [ESLint plugin for react hooks](https://github.com/react/react/tree/main/packages/eslint-plugin-react-hooks).
 
 ## Features
 
@@ -47,7 +47,7 @@ Then, enable the rule by modifying `tslint.json`:
 }
 ```
 
-To use report rule violations as warnings intead of errors, set it to `"warning"`.
+To report rule violations as warnings instead of errors, set it to `"warning"`.
 
 ## Options
 
