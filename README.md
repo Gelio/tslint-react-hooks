@@ -1,5 +1,11 @@
 # TSLint Rules of Hooks
 
+> **This package is no longer maintained.** [TSLint is deprecated](https://github.com/palantir/tslint/issues/4534),
+> and v2.3.0 is the final release of `tslint-react-hooks`. Use
+> [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) with
+> [typescript-eslint](https://typescript-eslint.io) instead. See
+> [Migrating to ESLint](#migrating-to-eslint).
+
 [![Downloads badge](https://img.shields.io/npm/dw/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
 [![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
 [![License badge](https://img.shields.io/npm/l/tslint-react-hooks.svg?style=flat)](https://github.com/Gelio/tslint-react-hooks/blob/master/LICENSE.md)
@@ -23,6 +29,77 @@ The rule is based on an [ESLint plugin for react hooks](https://github.com/react
   - functions that themselves are not custom hooks or components
 - detects using React hooks in spite of an early return
 - support for detecting hooks from namespaces other than `React` (e.g. `MyHooks.useHook`) (**optional**)
+
+## Migrating to ESLint
+
+The `rules-of-hooks` rule in the official
+[`eslint-plugin-react-hooks`](https://github.com/react/react/tree/main/packages/eslint-plugin-react-hooks)
+checks the same Rules of Hooks as this package, and the plugin also ships `exhaustive-deps`, which
+checks effect dependency arrays and has no equivalent here.
+
+1. Set up ESLint for TypeScript by following the
+   [typescript-eslint Getting Started guide](https://typescript-eslint.io/getting-started).
+
+2. Optionally, convert the rest of your `tslint.json` with
+   [`tslint-to-eslint-config`](https://github.com/typescript-eslint/tslint-to-eslint-config):
+
+   ```sh
+   npx tslint-to-eslint-config
+   ```
+
+   It writes a legacy `.eslintrc.js` file, which ESLint 10 no longer reads, so treat its output as a
+   starting point to move into `eslint.config.mjs` (e.g. with
+   [`@eslint/migrate-config`](https://www.npmjs.com/package/@eslint/migrate-config)). It does not
+   convert `react-hooks-nesting`; replace that rule by hand in the next steps.
+
+3. Install the plugin:
+
+   ```sh
+   npm install eslint-plugin-react-hooks --save-dev
+   ```
+
+4. Enable the rules in `eslint.config.mjs`, next to the typescript-eslint config:
+
+   ```js
+   // eslint.config.mjs
+   import js from '@eslint/js';
+   import { defineConfig } from 'eslint/config';
+   import reactHooks from 'eslint-plugin-react-hooks';
+   import tseslint from 'typescript-eslint';
+
+   export default defineConfig(
+     {
+       files: ['**/*.{js,jsx,ts,tsx}'],
+       extends: [js.configs.recommended, tseslint.configs.recommended],
+     },
+     {
+       files: ['**/*.{js,jsx,ts,tsx}'],
+       plugins: { 'react-hooks': reactHooks },
+       rules: {
+         'react-hooks/rules-of-hooks': 'error',
+         'react-hooks/exhaustive-deps': 'warn',
+       },
+     },
+   );
+   ```
+
+   This enables only the two classic hooks rules. The plugin's README recommends its preset,
+   `reactHooks.configs.flat.recommended`, which also turns on its React Compiler rules.
+
+5. Remove `tslint-react-hooks`, TSLint and your `tslint.json` once ESLint covers your code.
+
+A `"warning"` severity in `tslint.json` becomes `'warn'` in ESLint. Rewrite
+`tslint:disable` comments for `react-hooks-nesting` as ESLint disable comments for
+`react-hooks/rules-of-hooks`, e.g. `// eslint-disable-next-line react-hooks/rules-of-hooks`.
+
+The `detect-hooks-from-non-react-namespace` option has no direct equivalent. `rules-of-hooks` has
+no option for it, and always treats `Namespace.useSomething` as a hook when the namespace starts
+with an uppercase letter: `MyHooks.useHook` is checked, while `myHooks.useHook` is not.
+
+### Compatibility
+
+The final release supports TSLint 5 and 6, and TypeScript 2.4 through 6.x. TypeScript 7 is not
+supported: TSLint itself crashes on it.
 
 ## Installation
 

@@ -1,5 +1,25 @@
 # Changelog
 
+## v2.3.0 (2026-10-21)
+
+- Final release. `tslint-react-hooks` is no longer maintained because TSLint is deprecated.
+
+  Migrate to `eslint-plugin-react-hooks` with typescript-eslint. The README describes how.
+
+- Change the `typescript` `peerDependency` to `>=2.4.0 <7.0.0-0`
+
+  TypeScript 2.1 through 2.3 never worked with this rule. TypeScript 7 is not supported, because
+  TSLint itself crashes on it.
+
+- Verify that React 19's `use` API is not reported when called conditionally
+
+- Maintenance
+
+  - Move CI from Azure Pipelines to GitHub Actions
+  - Test TypeScript 2.4, 3.9, 4.9, 5 and 6 with TSLint 5 and 6 in CI
+  - Smoke-test the packed tarball in CI
+  - Upgrade TypeScript to 5.x for building the rule
+
 ## v2.2.2 (2020-03-21)
 
 - Maintenance
