@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test:
@@ -59,7 +59,7 @@ jobs:
             console.log(`typescript ${ts}, tslint ${tslint}`);
             const wantTs = process.env.WANT_TS;
             const wantTslint = process.env.WANT_TSLINT;
-            if (ts !== wantTs && !ts.startsWith(wantTs + ".")) {
+            if (!ts.startsWith(wantTs + ".")) {
               console.error(`Expected typescript ${wantTs}.x, got ${ts}`);
               process.exit(1);
             }
