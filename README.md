@@ -53,7 +53,10 @@ checks effect dependency arrays and has no equivalent here.
    It writes a legacy `.eslintrc.js` file, which ESLint 10 no longer reads. Convert it to a flat
    config with [`@eslint/migrate-config`](https://www.npmjs.com/package/@eslint/migrate-config)
    (`npx @eslint/migrate-config .eslintrc.js`), then delete `.eslintrc.js`. To also convert
-   `tslint:disable` comments, run `npx tslint-to-eslint-config --comments <files>`.
+   `tslint:disable` comments, run `npx tslint-to-eslint-config --comments 'src/**/*.{ts,tsx}'`
+   (adjust the glob to your sources). It drops rule names it can't map, so a
+   `tslint:disable-next-line:react-hooks-nesting` comment becomes a bare `eslint-disable-next-line`
+   that disables every rule; add `react-hooks/rules-of-hooks` to those.
 
    It has no ESLint equivalent for `react-hooks-nesting`, so it keeps the rule running through
    TSLint inside a `@typescript-eslint/tslint/config` rule and asks you to install
