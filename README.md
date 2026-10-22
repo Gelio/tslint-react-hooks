@@ -4,7 +4,7 @@
 > and v2.3.0 is the final release of `tslint-react-hooks`. Use
 > [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) with
 > [typescript-eslint](https://typescript-eslint.io) instead. See
-> [Migrating to ESLint](#migrating-to-eslint).
+> [Migrating to ESLint](https://github.com/Gelio/tslint-react-hooks#migrating-to-eslint).
 
 [![Downloads badge](https://img.shields.io/npm/dw/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
 [![Version badge](https://img.shields.io/npm/v/tslint-react-hooks.svg?style=flat)](https://www.npmjs.com/package/tslint-react-hooks)
@@ -39,6 +39,9 @@ checks effect dependency arrays and has no equivalent here.
 
 1. Set up ESLint for TypeScript by following the
    [typescript-eslint Getting Started guide](https://typescript-eslint.io/getting-started).
+   typescript-eslint supports a narrower range of TypeScript versions than this package (see its
+   [dependency versions](https://typescript-eslint.io/users/dependency-versions)), so you may need
+   to upgrade TypeScript first.
 
 2. Optionally, convert the rest of your `tslint.json` with
    [`tslint-to-eslint-config`](https://github.com/typescript-eslint/tslint-to-eslint-config):
@@ -47,10 +50,15 @@ checks effect dependency arrays and has no equivalent here.
    npx tslint-to-eslint-config
    ```
 
-   It writes a legacy `.eslintrc.js` file, which ESLint 10 no longer reads, so treat its output as a
-   starting point to move into `eslint.config.mjs` (e.g. with
-   [`@eslint/migrate-config`](https://www.npmjs.com/package/@eslint/migrate-config)). It does not
-   convert `react-hooks-nesting`; replace that rule by hand in the next steps.
+   It writes a legacy `.eslintrc.js` file, which ESLint 10 no longer reads. Convert it to a flat
+   config with [`@eslint/migrate-config`](https://www.npmjs.com/package/@eslint/migrate-config)
+   (`npx @eslint/migrate-config .eslintrc.js`), then delete `.eslintrc.js`. To also convert
+   `tslint:disable` comments, run `npx tslint-to-eslint-config --comments <files>`.
+
+   It has no ESLint equivalent for `react-hooks-nesting`, so it keeps the rule running through
+   TSLint inside a `@typescript-eslint/tslint/config` rule and asks you to install
+   `@typescript-eslint/eslint-plugin-tslint`. Delete that rule and that plugin: the next steps
+   replace them, and they stop working once TSLint is removed.
 
 3. Install the plugin:
 
@@ -58,7 +66,9 @@ checks effect dependency arrays and has no equivalent here.
    npm install eslint-plugin-react-hooks --save-dev
    ```
 
-4. Enable the rules in `eslint.config.mjs`, next to the typescript-eslint config:
+4. Enable the rules in your ESLint config, next to the typescript-eslint config. If step 2 created
+   a config file (such as `eslint.config.js`), add the rules there; ESLint loads only one config
+   file, so don't create a second one. A complete config looks like this:
 
    ```js
    // eslint.config.mjs

@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.3.0 (2026-10-21)
+## v2.3.0 (2026-10-22)
 
 - Final release. `tslint-react-hooks` is no longer maintained because TSLint is deprecated.
 
@@ -18,7 +18,10 @@
   - Move CI from Azure Pipelines to GitHub Actions
   - Test TypeScript 2.4, 3.9, 4.9, 5 and 6 with TSLint 5 and 6 in CI
   - Smoke-test the packed tarball in CI
-  - Upgrade TypeScript to 5.x for building the rule
+  - Upgrade TypeScript to 5.x for building the rule, and TSLint to 6.1.3
+  - Publish from a `files` allowlist instead of `.npmignore`, and build in `prepack` instead of
+    `prepublishOnly`. The published files are unchanged.
+  - Point the rule's documentation link to react.dev
 
 ## v2.2.2 (2020-03-21)
 
