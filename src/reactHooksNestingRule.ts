@@ -8,7 +8,7 @@ export class Rule extends Rules.AbstractRule {
   public static metadata: IRuleMetadata = {
     ruleName: 'react-hooks-nesting',
     description: 'Enforces Rules of Hooks',
-    descriptionDetails: 'See https://reactjs.org/docs/hooks-rules.html',
+    descriptionDetails: 'See https://react.dev/reference/rules/rules-of-hooks',
 
     optionsDescription: Utils.dedent`
       An optional object with the property ${detectHooksFromNonReactNamespaceOptionName}.

@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+# Pull requests share a group per ref so new pushes cancel stale runs.
+# Pushes to master get a unique group so every commit keeps a result.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24', '26']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  compat:
+    name: Compat (TSLint ${{ matrix.tslint }}, TypeScript ${{ matrix.typescript }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tslint: ['5', '6']
+        typescript: ['2.4', '3.9', '4.9', '5', '6']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      # Compile with the devDependency TypeScript before overriding it:
+      # the rule ships as compiled JS, so only the runtime versions vary.
+      - run: npm run build
+      - run: npm i --no-save tslint@${{ matrix.tslint }} typescript@${{ matrix.typescript }}
+      - name: Assert installed versions
+        env:
+          WANT_TS: ${{ matrix.typescript }}
+          WANT_TSLINT: ${{ matrix.tslint }}
+        run: |
+          node -e '
+            const ts = require("typescript/package.json").version;
+            const tslint = require("tslint/package.json").version;
+            console.log(`typescript ${ts}, tslint ${tslint}`);
+            const wantTs = process.env.WANT_TS;
+            const wantTslint = process.env.WANT_TSLINT;
+            if (!ts.startsWith(wantTs + ".")) {
+              console.error(`Expected typescript ${wantTs}.x, got ${ts}`);
+              process.exit(1);
+            }
+            if (!tslint.startsWith(wantTslint + ".")) {
+              console.error(`Expected tslint ${wantTslint}.x, got ${tslint}`);
+              process.exit(1);
+            }
+          '
+      - run: npm run test:only
+
+  package:
+    name: Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      # `prepack` builds `dist`, so this packs what `npm publish` would.
+      - run: npm pack
+      - name: Lint with the packed tarball
+        run: |
+          set -euo pipefail
+          tarball="$PWD/$(ls tslint-react-hooks-*.tgz)"
+          mkdir "$RUNNER_TEMP/smoke"
+          cd "$RUNNER_TEMP/smoke"
+          npm init -y > /dev/null
+          # Pin TypeScript 5: an unpinned install picks 7, which TSLint can't run on.
+          npm i --no-audit --no-fund "$tarball" tslint@6 typescript@5
+          cat > tslint.json <<'EOF'
+          {
+            "extends": ["tslint-react-hooks"],
+            "rules": { "react-hooks-nesting": "error" }
+          }
+          EOF
+          cat > bad.ts <<'EOF'
+          function MyComponent() {
+            if (Math.random() > 0.5) {
+              useState(0);
+            }
+          }
+          EOF
+          cat > good.ts <<'EOF'
+          function MyComponent() {
+            useState(0);
+          }
+          EOF
+          set +e
+          npx tslint -c tslint.json bad.ts > bad.out 2>&1
+          status=$?
+          set -e
+          cat bad.out
+          if [ "$status" -eq 0 ] || ! grep -q 'A hook cannot appear inside an if statement' bad.out; then
+            echo "::error::Expected tslint to report react-hooks-nesting in bad.ts"
+            exit 1
+          fi
+          npx tslint -c tslint.json good.ts

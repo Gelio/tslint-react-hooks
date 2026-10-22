@@ -1,0 +1,37 @@
+// React 19's `use` API may be called conditionally, in loops and after an
+// early return. It is not a hook as far as the Rules of Hooks are concerned.
+
+function MyComponent({ showTheme, items }: Props) {
+  if (showTheme) {
+    const theme = use(ThemeContext);
+    const namespacedTheme = React.use(ThemeContext);
+  }
+
+  for (const item of items) {
+    use(item.promise);
+  }
+
+  while (items.length > 0) {
+    use(items.pop().promise);
+  }
+
+  const label = showTheme ? use(LabelContext) : null;
+
+  if (!items) {
+    return null;
+  }
+
+  const value = use(ValueContext);
+
+  return <div>{value}</div>;
+}
+
+// =============================
+// The rule is still active for real hooks in the same file
+
+function OtherComponent({ condition }: Props) {
+  if (condition) {
+    const [state] = useState(0);
+                    ~~~~~~~~~~~ [A hook cannot appear inside an if statement]
+  }
+}

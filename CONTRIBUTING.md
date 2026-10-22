@@ -1,5 +1,9 @@
 # Contributing guidelines
 
+> **This project is no longer maintained.** TSLint is deprecated and v2.3.0 is the final release, so
+> new issues and pull requests will not be addressed. Use `eslint-plugin-react-hooks` instead (see
+> [Migrating to ESLint](./README.md#migrating-to-eslint)). The notes below are kept for reference.
+
 Anyone is welcome to contribute to this project. Filing issues with detected bugs or false positives
 is appreciated, as is opening pull requests with fixes to those.
 
