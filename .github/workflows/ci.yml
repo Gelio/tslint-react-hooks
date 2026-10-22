@@ -8,9 +8,11 @@ on:
 permissions:
   contents: read
 
+# Pull requests share a group per ref so new pushes cancel stale runs.
+# Pushes to master get a unique group so every commit keeps a result.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   test:
